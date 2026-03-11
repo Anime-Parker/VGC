@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* ===== VGC Custom Theme ===== */
+/* Colors sampled from the VGC logo */
+
+@theme inline {
+  /* Background tones */
+  --color-cream: #E8E4D9;
+  --color-cream-light: #F2EFE6;
+  --color-cream-dark: #DDD8CA;
+
+  /* Forest greens — primary text / headers */
+  --color-forest: #2D3B2D;
+  --color-forest-light: #4A5B4A;
+
+  /* Leaf greens — CTAs / accents */
+  --color-leaf: #5B8C2A;
+  --color-leaf-light: #6FA33A;
+  --color-leaf-dark: #4A7322;
+
+  /* Font family */
+  --font-sans: var(--font-montserrat);
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-forest);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
