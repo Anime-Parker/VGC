@@ -1,16 +1,30 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Instagram, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-forest text-cream-light">
-            <div className="mx-auto max-w-7xl px-5 py-14 md:px-8">
+        <footer className="relative bg-forest text-cream-light overflow-hidden">
+            {/* Background Image Layer (Plants) */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/images/footer-plants.jpg"
+                    alt="Footer Plants Background"
+                    fill
+                    className="object-cover object-center opacity-40"
+                    unoptimized
+                />
+                {/* Gradient Overlay to ensure text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-forest xl:from-forest/90 via-forest/80 to-forest/90 pointer-events-none"></div>
+            </div>
+
+            <div className="relative z-10 mx-auto max-w-7xl px-5 py-14 md:px-8">
                 {/* Top row */}
-                <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+                <div className="flex flex-col gap-10 md:flex-row md:justify-between">
                     {/* Brand */}
-                    <div>
+                    <div className="md:max-w-md">
                         <Link
                             href="/"
                             className="text-lg font-bold uppercase tracking-widest text-cream"
@@ -23,29 +37,8 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <p className="mb-4 text-xs font-bold uppercase tracking-widest text-cream-light/50">
-                            Quick Links
-                        </p>
-                        <nav className="flex flex-col gap-3 text-sm">
-                            <a href="#services" className="transition-colors hover:text-leaf-light w-fit">
-                                Services
-                            </a>
-                            <a href="#gallery" className="transition-colors hover:text-leaf-light w-fit">
-                                Gallery
-                            </a>
-                            <a href="#faq" className="transition-colors hover:text-leaf-light w-fit">
-                                FAQ
-                            </a>
-                            <a href="#contact" className="transition-colors hover:text-leaf-light w-fit">
-                                Contact
-                            </a>
-                        </nav>
-                    </div>
-
                     {/* Contact Info + Social */}
-                    <div>
+                    <div className="md:text-left">
                         <p className="mb-4 text-xs font-bold uppercase tracking-widest text-cream-light/50">
                             Get in Touch
                         </p>
@@ -86,7 +79,7 @@ export default function Footer() {
                 {/* Bottom row */}
                 <div className="flex flex-col items-center gap-3 text-center text-xs text-cream-light/50 md:flex-row md:justify-between">
                     <p className="font-medium tracking-wide text-cream-light/70">
-                        20+ Years of Excellence
+                        25+ Years of Excellence
                     </p>
                     <p>&copy; {currentYear} Vanamali Greenscape Creations. All rights reserved.</p>
                 </div>

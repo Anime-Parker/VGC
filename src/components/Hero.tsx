@@ -9,16 +9,15 @@ export default function Hero() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/images/hero-bg.jpg"
+                    src="/images/new/farmhouse/IMG20200906104616.jpg"
                     alt="Beautiful landscape design by Vanamali Greenscape Creations"
                     fill
                     className="object-cover"
                     priority
                     sizes="100vw"
                 />
-                {/* Gradient Overlay for Readability */}
-                <div className="absolute inset-0 bg-black/40"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-forest/90 via-forest/60 to-transparent"></div>
+                {/* Dark Overlay for Readability (Lightened for clarity) */}
+                <div className="absolute inset-0 bg-black/20"></div>
             </div>
 
             {/* Content Container */}
@@ -29,7 +28,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="mb-4 text-sm font-semibold uppercase tracking-widest text-leaf-light md:text-base"
+                        className="mb-4 text-sm font-semibold uppercase tracking-widest text-white/90 md:text-base"
                     >
                         25+ Years of Excellence | Proudly Serving You
                     </motion.p>
@@ -63,7 +62,7 @@ export default function Hero() {
                             href="#contact"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-block rounded-full bg-leaf px-8 py-4 text-sm font-bold uppercase tracking-wider text-cream-light shadow-lg transition-colors hover:bg-leaf-light md:px-10 md:py-5 md:text-base"
+                            className="inline-block rounded-full bg-leaf px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition-colors hover:bg-leaf-light md:px-10 md:py-5 md:text-base"
                         >
                             Contact Us
                         </motion.a>

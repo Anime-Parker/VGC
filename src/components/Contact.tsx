@@ -170,7 +170,11 @@ export default function Contact() {
                                     <input
                                         type="tel"
                                         id="phone"
-                                        {...register("phone", { required: "Phone number is required" })}
+                                        maxLength={10}
+                                        {...register("phone", {
+                                            required: "Phone number is required",
+                                            pattern: { value: /^\d{10}$/, message: "Phone number must be exactly 10 digits" }
+                                        })}
                                         className="peer w-full border-b-2 border-cream-dark bg-transparent px-0 py-3 text-forest placeholder-transparent focus:border-leaf focus:outline-none focus:ring-0"
                                         placeholder="Phone Number"
                                     />
@@ -188,10 +192,7 @@ export default function Contact() {
                                     <input
                                         type="email"
                                         id="email"
-                                        {...register("email", {
-                                            required: "Email is required",
-                                            pattern: { value: /^\S+@\S+$/i, message: "Invalid email formatting" }
-                                        })}
+                                        {...register("email")}
                                         className="peer w-full border-b-2 border-cream-dark bg-transparent px-0 py-3 text-forest placeholder-transparent focus:border-leaf focus:outline-none focus:ring-0"
                                         placeholder="Email Address"
                                     />
@@ -209,7 +210,7 @@ export default function Contact() {
                                     <textarea
                                         id="message"
                                         rows={4}
-                                        {...register("message", { required: "Message is required" })}
+                                        {...register("message")}
                                         className="peer w-full resize-none border-b-2 border-cream-dark bg-transparent px-0 py-3 text-forest placeholder-transparent focus:border-leaf focus:outline-none focus:ring-0"
                                         placeholder="Brief Message"
                                     />

@@ -29,6 +29,24 @@ const services: ServiceItem[] = [
         category: "residential",
     },
     {
+        title: "Roof Top Gardens",
+        description: "Green spaces on your terrace and rooftop.",
+        icon: <Sun className="h-8 w-8" />,
+        category: "rooftop",
+    },
+    {
+        title: "Organic Farms",
+        description: "Sustainable farming and vegetable gardens.",
+        icon: <Carrot className="h-8 w-8" />,
+        category: "organic",
+    },
+    {
+        title: "Farm House Villas",
+        description: "Expansive landscape design for farm houses and villas.",
+        icon: <Home className="h-8 w-8" />,
+        category: "farmhouse",
+    },
+    {
         title: "Spiritual Landscaping",
         description: "Sacred gardens designed for temples and spiritual spaces.",
         icon: <Landmark className="h-8 w-8" />,
@@ -59,18 +77,6 @@ const services: ServiceItem[] = [
         category: "biowall",
     },
     {
-        title: "Roof Top Gardens",
-        description: "Green spaces on your terrace and rooftop.",
-        icon: <Sun className="h-8 w-8" />,
-        category: "rooftop",
-    },
-    {
-        title: "Organic Farms",
-        description: "Sustainable farming and vegetable gardens.",
-        icon: <Carrot className="h-8 w-8" />,
-        category: "organic",
-    },
-    {
         title: "Lawn",
         description: "Lush, manicured lawns for every outdoor space.",
         icon: <TreePine className="h-8 w-8" />,
@@ -81,12 +87,6 @@ const services: ServiceItem[] = [
         description: "Comprehensive landscape planning and layout design.",
         icon: <Landmark className="h-8 w-8" />,
         category: "layouts",
-    },
-    {
-        title: "Farm House Villas",
-        description: "Expansive landscape design for farm houses and villas.",
-        icon: <Home className="h-8 w-8" />,
-        category: "farmhouse",
     },
 ];
 
@@ -151,7 +151,7 @@ export default function Services() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                    className="flex flex-wrap justify-center gap-6"
                 >
                     {services.map((service, index) => (
                         <motion.div
@@ -159,7 +159,7 @@ export default function Services() {
                             variants={cardVariants}
                             whileHover={{ y: -8, transition: { duration: 0.2 } }}
                             onClick={() => handleServiceClick(service.category)}
-                            className="group flex cursor-pointer flex-col items-center bg-white p-8 rounded-2xl shadow-sm border border-cream-dark/50 hover:shadow-xl hover:border-leaf/30 transition-all text-center"
+                            className="group flex cursor-pointer flex-col items-center bg-white p-8 rounded-2xl shadow-sm border border-cream-dark/50 hover:shadow-xl hover:border-leaf/30 transition-all text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(100%/3-16px)] xl:w-[calc(25%-18px)]"
                         >
                             <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-xl bg-leaf/10 text-leaf transition-colors group-hover:bg-leaf group-hover:text-white">
                                 {service.icon}

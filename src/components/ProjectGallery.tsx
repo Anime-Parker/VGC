@@ -368,7 +368,23 @@ const ALL_IMAGES = Object.entries(IMAGE_CATEGORIES)
     .flatMap(([, val]) => val.images);
 IMAGE_CATEGORIES.all.images = ALL_IMAGES;
 
-const CATEGORY_KEYS = Object.keys(IMAGE_CATEGORIES);
+const SERVICE_ORDER = [
+    "all",
+    "residential",
+    "rooftop",
+    "organic",
+    "farmhouse",
+    "spiritual",
+    "industrial",
+    "commercial",
+    "hardscaping",
+    "biowall",
+    "lawn",
+    "layouts",
+    "drip",
+];
+
+const CATEGORY_KEYS = SERVICE_ORDER.filter((key) => key in IMAGE_CATEGORIES);
 
 export default function ProjectGallery() {
     const [activeCategory, setActiveCategory] = useState("all");

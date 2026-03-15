@@ -5,9 +5,17 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { name, email, phone, message } = body;
 
-        if (!name || !email || !phone || !message) {
+        if (!name || !phone) {
             return NextResponse.json(
-                { error: "Missing required fields" },
+                { error: "Name and Phone number are required fields" },
+                { status: 400 }
+            );
+        }
+
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+            return NextResponse.json(
+                { error: "Phone number must be exactly 10 digits" },
                 { status: 400 }
             );
         }
@@ -16,11 +24,12 @@ export async function POST(request: Request) {
             service_id: process.env.EMAILJS_SERVICE_ID,
             template_id: process.env.EMAILJS_TEMPLATE_ID,
             user_id: process.env.EMAILJS_PUBLIC_KEY,
+            accessToken: process.env.EMAILJS_PRIVATE_KEY,
             template_params: {
-                name,
-                email,
-                phone,
-                message,
+                name: name,
+                email: email || "Not provided",
+                phone: phone,
+                message: message || "No message provided",
             },
         };
 

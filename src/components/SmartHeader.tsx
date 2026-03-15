@@ -26,10 +26,50 @@ export default function SmartHeader() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith("#")) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const target = document.getElementById(targetId);
+
+            if (target) {
+                // Approximate header height
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                
+                const startPosition = window.scrollY;
+                const distance = offsetPosition - startPosition;
+                const duration = 400; // 400ms for quick scroll transition
+                let start: number | null = null;
+
+                window.requestAnimationFrame(function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const percentage = Math.min(progress / duration, 1);
+                    
+                    // easeInOutQuad
+                    const ease = percentage < 0.5 
+                        ? 2 * percentage * percentage 
+                        : -1 + (4 - 2 * percentage) * percentage;
+                        
+                    window.scrollTo(0, startPosition + distance * ease);
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        window.history.pushState(null, '', href);
+                    }
+                });
+            }
+        }
+        setIsMobileMenuOpen(false);
+    };
+
     return (
         <header
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${isScrolled
-                ? "bg-cream/95 backdrop-blur-md shadow-md"
+                ? "bg-gray-800/95 backdrop-blur-md shadow-md"
                 : "bg-transparent shadow-none"
                 }`}
         >
@@ -46,7 +86,7 @@ export default function SmartHeader() {
                         />
                     </div>
                     <span
-                        className={`hidden text-base font-bold uppercase tracking-widest sm:block transition-colors duration-300 ${isScrolled ? "text-forest" : "text-white"
+                        className={`hidden text-base font-bold uppercase tracking-widest sm:block transition-colors duration-300 ${isScrolled ? "text-white" : "text-white"
                             }`}
                     >
                         Vanamali Greenscape
@@ -60,8 +100,9 @@ export default function SmartHeader() {
                         <Link
                             key={link.name}
                             href={link.href}
+                            onClick={(e) => scrollToHash(e, link.href)}
                             className={`text-sm font-semibold uppercase tracking-wide transition-colors ${isScrolled
-                                ? "text-forest hover:text-leaf"
+                                ? "text-white hover:text-gray-300"
                                 : "text-white/90 hover:text-white"
                                 }`}
                         >
@@ -70,6 +111,7 @@ export default function SmartHeader() {
                     ))}
                     <Link
                         href="#contact"
+                        onClick={(e) => scrollToHash(e, "#contact")}
                         className="rounded-full bg-leaf px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white shadow-md transition-all hover:bg-leaf-light hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-leaf focus:ring-offset-2"
                     >
                         Contact Us
@@ -78,7 +120,7 @@ export default function SmartHeader() {
 
                 {/* Mobile Menu Toggle Button */}
                 <button
-                    className={`md:hidden transition-colors ${isScrolled ? "text-forest" : "text-white"
+                    className={`md:hidden transition-colors ${isScrolled ? "text-white" : "text-white"
                         }`}
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     aria-label="Toggle navigation menu"
@@ -94,7 +136,7 @@ export default function SmartHeader() {
                         <Link
                             key={link.name}
                             href={link.href}
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={(e) => scrollToHash(e, link.href)}
                             className="border-b border-cream-dark/50 py-4 text-base font-semibold uppercase tracking-widest text-forest transition-colors hover:text-leaf"
                         >
                             {link.name}
@@ -102,7 +144,7 @@ export default function SmartHeader() {
                     ))}
                     <Link
                         href="#contact"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={(e) => scrollToHash(e, "#contact")}
                         className="mt-6 inline-block w-full rounded-full bg-leaf py-3 text-center text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-leaf-light"
                     >
                         Contact Us
